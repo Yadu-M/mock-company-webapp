@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       # Navigate to the client-app folder where the yarn.lock file exists
+      
       - name: Navigate to client-app folder
         working-directory: ./client-app
         run: |
