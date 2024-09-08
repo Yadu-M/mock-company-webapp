@@ -30,5 +30,4 @@ jobs:
       # Run Jenkinsfile Runner
       - name: Jenkinsfile Runner Prepackaged
         uses: jenkinsci/jenkinsfile-runner-github-actions@v0.2
-        with:
         # Specify any inputs if required by the action
