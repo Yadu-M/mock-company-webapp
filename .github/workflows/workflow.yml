@@ -7,27 +7,28 @@ jobs:
       # Checkout the code
       - uses: actions/checkout@v2
 
-      # Set up Node.js and Yarn, scoped to the `client-app` directory
-      - name: Set up Node.js and Yarn
+      # Set up Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'yarn'
-          cache-dependency-path: client-app/yarn.lock  # Set cache path to yarn.lock in client-app
 
-      # Change into the client-app directory and verify the presence of yarn.lock
+      # Navigate to the client-app directory
       - name: Navigate to client-app folder
         working-directory: ./client-app
         run: |
           echo "Current directory: $(pwd)"
           ls -la
 
-      # Install dependencies with Yarn inside the client-app folder
+      # Install dependencies with Yarn
       - name: Install dependencies
         working-directory: ./client-app
         run: |
-          yarn install --frozen-lockfile  # Use the frozen-lockfile option to force using the exact yarn.lock
+          yarn install --frozen-lockfile  # Use the frozen-lockfile option to ensure exact match with yarn.lock
 
       # Run Jenkinsfile Runner
       - name: Jenkinsfile Runner Prepackaged
         uses: jenkinsci/jenkinsfile-runner-github-actions@v0.2
+        with:
+        # Specify any inputs if required by the action
