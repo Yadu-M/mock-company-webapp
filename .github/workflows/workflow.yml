@@ -12,13 +12,16 @@ jobs:
           node-version: '14'
           cache: 'yarn'
 
-      - name: Install Yarn
-        run: npm install -g yarn
+      # Navigate to the client-app folder where the yarn.lock file exists
+      - name: Navigate to client-app folder
+        working-directory: ./client-app
+        run: |
+          ls -la  # To verify that we are inside the correct directory
 
       # Install dependencies inside the 'client-app' folder
       - name: Install dependencies
-        run: yarn install
-        working-directory: ./client-app  # Specifies the folder where yarn.lock is located
+        working-directory: ./client-app
+        run: yarn install  # Make sure to run this in the correct folder
 
       - name: Jenkinsfile Runner Prepackaged
         uses: jenkinsci/jenkinsfile-runner-github-actions@v0.2
