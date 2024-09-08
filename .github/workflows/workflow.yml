@@ -6,17 +6,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Node.js and Yarn
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'yarn'
-
       # Navigate to the client-app folder where the yarn.lock file exists
       - name: Navigate to client-app folder
         working-directory: ./client-app
         run: |
           ls -la  # To verify that we are inside the correct directory
+
+      - name: Set up Node.js and Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
 
       # Install dependencies inside the 'client-app' folder
       - name: Install dependencies
