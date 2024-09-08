@@ -4,6 +4,18 @@ jobs:
   jenkinsfile-runner-prepackaged:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Jenkinsfile Runner Prepackaged
-      uses: jenkinsci/jenkinsfile-runner-github-actions@v0.2
+      - uses: actions/checkout@master
+
+      # Set up Node.js and install Yarn
+      - name: Set up Node.js and Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Use your preferred Node.js version
+          cache: 'yarn'
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      # Run Jenkinsfile Runner Prepackaged
+      - name: Jenkinsfile Runner Prepackaged
+        uses: jenkinsci/jenkinsfile-runner-github-actions@v0.2
