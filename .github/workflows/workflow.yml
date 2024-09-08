@@ -4,24 +4,30 @@ jobs:
   jenkinsfile-runner-prepackaged:
     runs-on: ubuntu-latest
     steps:
+      # Checkout the code
       - uses: actions/checkout@v2
-      # Navigate to the client-app folder where the yarn.lock file exists
-      
-      - name: Navigate to client-app folder
-        working-directory: ./client-app
-        run: |
-          ls -la  # To verify that we are inside the correct directory
 
+      # Set up Node.js and Yarn, scoped to the `client-app` directory
       - name: Set up Node.js and Yarn
         uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'yarn'
+          cache-dependency-path: client-app/yarn.lock  # Set cache path to yarn.lock in client-app
 
-      # Install dependencies inside the 'client-app' folder
+      # Change into the client-app directory and verify the presence of yarn.lock
+      - name: Navigate to client-app folder
+        working-directory: ./client-app
+        run: |
+          echo "Current directory: $(pwd)"
+          ls -la
+
+      # Install dependencies with Yarn inside the client-app folder
       - name: Install dependencies
         working-directory: ./client-app
-        run: yarn install  # Make sure to run this in the correct folder
+        run: |
+          yarn install --frozen-lockfile  # Use the frozen-lockfile option to force using the exact yarn.lock
 
+      # Run Jenkinsfile Runner
       - name: Jenkinsfile Runner Prepackaged
         uses: jenkinsci/jenkinsfile-runner-github-actions@v0.2
